@@ -1,0 +1,7 @@
+
+
+
+@for (inv of investmentList; track $index) {
+    <p>{{ inv.year.toString() + ' ' + inv.investmentValue.toString() + ' ' + inv.interest.toString() + ' ' + 
+    inv.totalInterest.toString() + ' ' + inv.capital.toString() }}</p>
+}
