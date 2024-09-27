@@ -1,7 +1,29 @@
 
-
-
-@for (inv of investmentList; track $index) {
-    <p>{{ inv.year.toString() + ' ' + inv.investmentValue.toString() + ' ' + inv.interest.toString() + ' ' + 
-    inv.totalInterest.toString() + ' ' + inv.capital.toString() }}</p>
+@if (!results){
+    <p class="center">Please enter some values and press "Calculate"</p>
+} @else{
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Investment Value</th>
+                <th>Intereset(Year)</th>
+                <th>Total Intereset</th>
+                <th>Invested Capital</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            @for (result of results; track result.year){
+                <tr>
+                    <td>{{ result.year }}</td>
+                    <td>{{ result.valueEndOfYear | currency }}</td>
+                    <td>{{ result.interest | currency }}</td>
+                    <td>{{ result.totalInterest | currency }}</td>
+                    <td>{{ result.totalAmountInvested | currency }}</td>
+                </tr>
+            }
+        </tbody>
+    
+    </table>
 }

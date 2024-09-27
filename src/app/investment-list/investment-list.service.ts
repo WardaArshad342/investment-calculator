@@ -1,48 +1,30 @@
 import { Injectable } from "@angular/core";
-import { InvestmentList } from "./investment-list.model";
+import { InvestmentInput, InvestmentList } from "./investment-list.model";
 
 @Injectable({providedIn: 'root'})
 export class InvestmentListService{
-private investmentList: InvestmentList[] = [
-    {
-        year: 1,
-        investmentValue: 5,
-        interest: 7,
-        totalInterest: 9,
-        capital: 58
-    },
-    {
-        year: 2,
-        investmentValue: 5,
-        interest: 7,
-        totalInterest: 9,
-        capital: 58
-    },
-    {
-        year: 3,
-        investmentValue: 5,
-        interest: 7,
-        totalInterest: 9,
-        capital: 58
-    },
-    {
-        year: 4,
-        investmentValue: 5,
-        interest: 7,
-        totalInterest: 9,
-        capital: 58
-    },
-    {
-        year: 5,
-        investmentValue: 5,
-        interest: 7,
-        totalInterest: 9,
-        capital: 58
+  resultsData?: InvestmentList[];
+  
+  CalculateInvestmentResults(data: InvestmentInput){
+        const { initialInvestment, annualInvestment, expectedReturn, duration} = data;
+        const annualData = [];
+        let investmentValue = initialInvestment;
+    
+        for(let i = 0; i < duration; i++){
+            const year = i + 1;
+            const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+            investmentValue += interestEarnedInYear + annualInvestment;
+            const totalInterest = investmentValue - annualInvestment * year - initialInvestment;
+    
+            annualData.push({
+                year: year,
+                interest: interestEarnedInYear,
+                valueEndOfYear: interestEarnedInYear,
+                annualInvestment: annualInvestment,
+                totalInterest: totalInterest,
+                totalAmountInvested: initialInvestment + annualInvestment * year,
+            })
+        }
+        this.resultsData = annualData;
     }
-]
-
-getInvestmentList(){
-    return this.investmentList;
-}
-
 }
