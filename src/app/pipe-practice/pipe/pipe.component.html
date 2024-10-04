@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <input type="text" id="Status" name="Status" [(ngModel)]="filteredStatus" />
+        <br>
+        <button class="btn btn-primary" (click)="onAddServer()" >Add Server</button>
+        <hr>
+        <ul class="list-group">
+            @for (server of servers | filter: filteredStatus:'status'; track $index) {
+              <li class="list-group-item" [ngClass]="getStatusClasses(server)">
+                <span class="badge">{{ server.status }}</span>
+                <strong>{{ server.name | shorten: 15 }}</strong> | 
+                  {{ server.instanceType | uppercase }} | 
+                  {{ server.started | date: 'fullDate' | uppercase }}
+              </li>
+            }
+        </ul>
+      </div>
+    </div>
+  </div>
+  
